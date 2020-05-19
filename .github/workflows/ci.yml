@@ -28,6 +28,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: ncc-build
+          path: dist
       - name: Test ncc build
         run: |
           node dist/index.js
