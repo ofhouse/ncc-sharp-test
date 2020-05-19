@@ -1,0 +1,14 @@
+{
+  "name": "ncc-sharp-test",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "ncc build sharp-resize.js -o dist"
+  },
+  "devDependencies": {
+    "@zeit/ncc": "0.22.2"
+  },
+  "dependencies": {
+    "sharp": "0.25.3"
+  }
+}
