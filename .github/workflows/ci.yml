@@ -32,7 +32,7 @@ jobs:
         run: |
           node dist/index.js
       - name: Upload Result
-          uses: actions/upload-artifact@v2
-          with:
-            name: image
-            path: dist/out.png
+        uses: actions/upload-artifact@v2
+        with:
+          name: image
+          path: dist/out.png
