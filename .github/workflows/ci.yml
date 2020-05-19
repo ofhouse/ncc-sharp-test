@@ -31,6 +31,7 @@ jobs:
           path: dist
       - name: Test ncc build
         run: |
+          ls
           node dist/index.js
       - name: Upload Result
         uses: actions/upload-artifact@v2
