@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "ncc build sharp-resize.js -o dist"
+    "build:js": "ncc build sharp-resize.js -o dist",
+    "build:ts": "ncc build sharp-resize.ts -o dist"
   },
   "devDependencies": {
-    "@zeit/ncc": "0.22.2"
+    "@types/node": "^12.0.0",
+    "@types/sharp": "^0.25.0",
+    "@zeit/ncc": "0.22.2",
+    "typescript": "3.9.2"
   },
   "dependencies": {
     "sharp": "0.25.3"

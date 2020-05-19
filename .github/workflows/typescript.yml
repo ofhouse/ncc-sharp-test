@@ -1,18 +1,18 @@
-name: CI
+name: TypeScript
 
 on: push
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: lambci/lambda:build-nodejs12.x
+    container: registry.gitlab.com/dealmore/dealmore-build-images/lambdaci:nodejs12.x
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install and build
         run: |
-          npm ci
-          npm run build
+          yarn --frozen-lockfile
+          yarn build:ts
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -21,7 +21,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    container: lambci/lambda:build-nodejs12.x
+    container: registry.gitlab.com/dealmore/dealmore-build-images/lambdaci:nodejs12.x
     needs: build
     steps:
       - name: Download Artifacts

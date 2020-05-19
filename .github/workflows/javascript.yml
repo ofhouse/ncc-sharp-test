@@ -1,0 +1,40 @@
+name: JavaScript
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: registry.gitlab.com/dealmore/dealmore-build-images/lambdaci:nodejs12.x
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install and build
+        run: |
+          yarn --frozen-lockfile
+          yarn build:js
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ncc-build
+          path: dist/
+
+  test:
+    runs-on: ubuntu-latest
+    container: registry.gitlab.com/dealmore/dealmore-build-images/lambdaci:nodejs12.x
+    needs: build
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: ncc-build
+          path: dist
+      - name: Test ncc build
+        run: |
+          ls
+          node dist/index.js
+      - name: Upload Result
+        uses: actions/upload-artifact@v2
+        with:
+          name: image
+          path: dist/out.png
