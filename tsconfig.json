@@ -10,7 +10,7 @@
     "sourceMap": true,
     "inlineSources": true,
     "types": ["node"],
-    "esModuleInterop": true,
+    "esModuleInterop": false,
     "strictPropertyInitialization": false,
     "experimentalDecorators": true
   }

@@ -1,4 +1,4 @@
-import sharp from 'sharp';
+import sharp = require('sharp');
 import * as fs from 'fs';
 import * as path from 'path';
 

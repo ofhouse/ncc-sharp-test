@@ -1,0 +1,44 @@
+name: Funny
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: registry.gitlab.com/dealmore/dealmore-build-images/lambdaci:nodejs12.x
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install and build
+        run: |
+          yarn --frozen-lockfile
+          yarn build:funny
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: funny-build
+          path: dist/
+
+  test:
+    runs-on: ubuntu-latest
+    container: registry.gitlab.com/dealmore/dealmore-build-images/lambdaci:nodejs12.x
+    needs: build
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: funny-build
+          path: dist-zip
+      - name: Unzip Artifact
+        uses: montudor/action-zip@v0.1.0
+        with:
+          args: unzip -qq dist-zip/artifact.zip -d ./dist
+      - name: Test funny build
+        run: |
+          ls
+          node --unhandled-rejections=strict dist/handler.js
+      - name: Upload Result
+        uses: actions/upload-artifact@v2
+        with:
+          name: image
+          path: dist/out.png
